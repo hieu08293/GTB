@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block head %}<div class="top"><div class="wrap"><div class="logo">LOGO</div><b>{{ brand }}{{ ' · Quản trị' if mode=='admin' }}</b></div></div>{% endblock %}
+{% block content %}<div class="box" style="margin-top:-36px;position:relative"><h2 style="margin-top:0">{{ {'login':'Đăng nhập','register':'Tạo tài khoản','admin':'Đăng nhập quản trị'}[mode] }}</h2>
+<form method="post" style="display:grid;gap:10px">
+{% if mode=='admin' %}<input name="u" placeholder="Tài khoản" required><input name="p" type="password" placeholder="Mật khẩu" required>
+{% else %}{% if mode=='register' %}<input name="name" placeholder="Họ tên" required>{% endif %}<input name="phone" inputmode="numeric" placeholder="Số điện thoại" required><input name="pw" type="password" placeholder="Mật khẩu" required>{% endif %}
+<button class="btn gold">{{ 'Đăng ký' if mode=='register' else 'Đăng nhập' }}</button></form>
+{% if mode=='login' %}<p>Chưa có tài khoản? <a class="ok" href="/register">Đăng ký</a></p>{% elif mode=='register' %}<p>Đã có tài khoản? <a class="ok" href="/login">Đăng nhập</a></p>{% endif %}</div>{% endblock %}

@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% block content %}<h2>Đơn hàng của tôi</h2>
+{% for o in orders %}<div class="box"><div class="row"><b>Đơn #{{ o.id }}</b><span class="{{ 'ok' if o.status=='xong' else 'bad' if o.status=='huy' else '' }}">{{ STATUS[o.status] }}</span></div>
+<p class="mut">{{ o.created }} · {{ o.addr }}</p>{% for i in o['items'] %}<div class="row"><span>{{ i.name }} × {{ i.qty }}</span><span>{{ (i.price*i.qty)|vnd }}</span></div>{% endfor %}
+<div class="row"><b>Tổng</b><span class="price">{{ o.total|vnd }}</span></div></div>
+{% else %}<div class="box">Bạn chưa có đơn hàng nào.</div>{% endfor %}{% endblock %}

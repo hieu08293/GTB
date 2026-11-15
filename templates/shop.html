@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% block content %}
+<div class="hero" style="margin-inline:0"><h1>Mua sắm dễ dàng <b>Giá tốt mỗi ngày</b></h1><span class="pill">Thanh toán bằng ví – Xử lý nhanh</span></div>
+<div class="tiles"><a class="tile" href="/wallet"><i></i>Nạp ví</a><a class="tile" href="/cart"><i></i>Giỏ hàng</a><a class="tile" href="/orders"><i></i>Đơn hàng</a><a class="tile" href="/wallet#ho-tro"><i></i>Hỗ trợ</a></div>
+<form class="search"><input name="q" value="{{ kw }}" placeholder="Tìm sản phẩm"><button class="btn">Tìm</button></form>
+<div class="chips"><a href="/" class="{{ 'on' if not cat }}">Tất cả</a>{% for c in cats %}<a href="/?cat={{ c }}" class="{{ 'on' if c==cat }}">{{ c }}</a>{% endfor %}</div>
+<div class="banner">Sản phẩm chính hãng – <span>Hoàn tiền nếu hủy đơn</span></div>
+{% for p in items %}<div class="card {{ 'hot' if p.sold>=10 }}">{% if p.sold>=10 %}<div class="ribbon">Bán chạy</div>{% endif %}
+<div class="ph">{% if p.img %}<img src="{{ p.img }}" alt="{{ p.name }}" loading="lazy">{% else %}Hình ảnh{% endif %}</div>
+<div class="in"><h3>{{ p.name }}</h3><p>{{ p.descr or p.cat }}</p><p>Còn {{ p.stock }} · Đã bán {{ p.sold }}</p>
+<div class="row"><span class="price">{{ p.price|vnd }}</span>
+{% if p.stock>0 %}<form method="post" action="/cart/add/{{ p.id }}"><button class="btn">Thêm vào giỏ</button></form>{% else %}<span class="bad">Hết hàng</span>{% endif %}</div></div></div>
+{% else %}<div class="box">Chưa có sản phẩm phù hợp. Hãy thử từ khóa hoặc danh mục khác.</div>{% endfor %}{% endblock %}

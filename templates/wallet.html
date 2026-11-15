@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block content %}<h2>{{ user.name }}</h2>
+<div class="box"><b>Nạp tiền vào ví</b>
+<form method="post" class="search"><input type="number" name="amount" min="10000" step="1000" placeholder="Số tiền (tối thiểu 10.000đ)" required><button class="btn gold">Tạo yêu cầu</button></form>
+<p class="mut">Chuyển khoản: {{ bank.name }} · STK {{ bank.acc }} · {{ bank.owner }}. Nội dung: mã NAP của yêu cầu. Quản trị viên duyệt sau khi nhận tiền.</p>
+{% for d in deps %}<div class="row"><span>NAP{{ d.id }} · {{ d.amount|vnd }}</span><span class="{{ 'ok' if d.status=='ok' else 'bad' if d.status=='huy' }}">{{ {'cho':'Chờ duyệt','ok':'Đã cộng','huy':'Từ chối'}[d.status] }}</span></div>{% endfor %}</div>
+<div class="box"><b>Lịch sử giao dịch</b>{% for l in led %}<div class="row"><span>{{ l.reason }}<br><small class="mut">{{ l.created }}</small></span><b class="{{ 'ok' if l.dir=='in' else 'bad' }}">{{ '+' if l.dir=='in' else '-' }}{{ l.amount|vnd }}</b></div>{% else %}<p class="mut">Chưa có giao dịch.</p>{% endfor %}</div>
+<div class="box" id="ho-tro"><b>Hỗ trợ</b><p class="mut">Liên hệ quản trị viên qua kênh bạn cấu hình tại đây.</p><a class="btn ghost" href="/logout">Đăng xuất</a></div>{% endblock %}
